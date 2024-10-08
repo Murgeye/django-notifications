@@ -190,6 +190,7 @@ class AbstractNotification(models.Model):
 
     actor_content_type = models.ForeignKey(
         ContentType,
+        db_constraint=False,
         on_delete=models.CASCADE,
         related_name='notify_actor',
         verbose_name=_('actor content type')
@@ -203,6 +204,7 @@ class AbstractNotification(models.Model):
 
     target_content_type = models.ForeignKey(
         ContentType,
+        db_constraint=False,
         on_delete=models.CASCADE,
         related_name='notify_target',
         verbose_name=_('target content type'),
@@ -215,6 +217,7 @@ class AbstractNotification(models.Model):
 
     action_object_content_type = models.ForeignKey(
         ContentType,
+        db_constraint=False,
         on_delete=models.CASCADE,
         related_name='notify_action_object',
         verbose_name=_('action object content type'),
