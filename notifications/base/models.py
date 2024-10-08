@@ -180,6 +180,7 @@ class AbstractNotification(models.Model):
 
     recipient = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        db_constraint=False,
         on_delete=models.CASCADE,
         related_name='notifications',
         verbose_name=_('recipient'),
