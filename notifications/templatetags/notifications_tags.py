@@ -8,7 +8,7 @@ from django.utils.html import format_html
 from django.core.cache import cache
 from notifications import settings
 from notifications.settings import get_config
-from models import Notification
+from notifications.models import Notification
 
 try:
     from django.urls import reverse
