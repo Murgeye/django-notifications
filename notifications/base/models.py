@@ -85,7 +85,7 @@ class NotificationQuerySet(models.query.QuerySet):
         # the time they were marked as read.
         qset = self.unread(True)
         if recipient:
-            qset = qset.filter(recipient=recipient)
+            qset = qset.filter(recipient=recipient.id)
 
         return qset.update(unread=False)
 
@@ -97,7 +97,7 @@ class NotificationQuerySet(models.query.QuerySet):
         qset = self.read(True)
 
         if recipient:
-            qset = qset.filter(recipient=recipient)
+            qset = qset.filter(recipient=recipient.id)
 
         return qset.update(unread=True)
 
@@ -118,7 +118,7 @@ class NotificationQuerySet(models.query.QuerySet):
         assert_soft_delete()
         qset = self.active()
         if recipient:
-            qset = qset.filter(recipient=recipient)
+            qset = qset.filter(recipient=recipient.id)
 
         return qset.update(deleted=True)
 
@@ -129,20 +129,20 @@ class NotificationQuerySet(models.query.QuerySet):
         assert_soft_delete()
         qset = self.deleted()
         if recipient:
-            qset = qset.filter(recipient=recipient)
+            qset = qset.filter(recipient=recipient.id)
 
         return qset.update(deleted=False)
 
     def mark_as_unsent(self, recipient=None):
         qset = self.sent()
         if recipient:
-            qset = qset.filter(recipient=recipient)
+            qset = qset.filter(recipient=recipient.id)
         return qset.update(emailed=False)
 
     def mark_as_sent(self, recipient=None):
         qset = self.unsent()
         if recipient:
-            qset = qset.filter(recipient=recipient)
+            qset = qset.filter(recipient=recipient.id)
         return qset.update(emailed=True)
 
 
