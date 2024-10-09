@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Any, cast
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.db.models import QuerySet
 from django.http import (
     Http404,
     HttpRequest,
@@ -30,7 +31,6 @@ from notifications.utils import slug2id
 Notification = load_model("notifications", "Notification")
 
 if TYPE_CHECKING:
-    from django.db.models import QuerySet
 
     from notifications.models import Notification as NotificationCls
 
