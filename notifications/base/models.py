@@ -26,8 +26,6 @@ from notifications.utils import id2slug
 if TYPE_CHECKING:
     import django_stubs_ext
 
-    from notifications.models import Notification
-
     django_stubs_ext.monkeypatch()
 
     class User:
@@ -50,7 +48,7 @@ def assert_soft_delete() -> None:
         raise ImproperlyConfigured(msg)
 
 
-class NotificationQuerySet(QuerySet[Notification]):
+class NotificationQuerySet(QuerySet):  # type: ignore[type-arg]
     """Notification QuerySet"""
 
     def unsent(self) -> Self:
