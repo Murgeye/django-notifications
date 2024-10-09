@@ -135,4 +135,4 @@ def user_context(context: dict[str, Any]) -> User | None:
 
     if user_is_anonymous:
         return None
-    return cast(User, user)
+    return cast("User", user)
