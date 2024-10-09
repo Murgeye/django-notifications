@@ -340,6 +340,7 @@ def notify_handler(verb, **kwargs):
         recipients = recipient
     else:
         recipients = [recipient]
+    recipients = [r.id for r in recipients]
 
     new_notifications = []
 
