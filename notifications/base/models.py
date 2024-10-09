@@ -178,11 +178,7 @@ class AbstractNotification(models.Model):
     LEVELS = Choices('success', 'info', 'warning', 'error')
     level = models.CharField(_('level'), choices=LEVELS, default=LEVELS.info, max_length=20)
 
-    recipient = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        db_constraint=False,
-        on_delete=models.CASCADE,
-        related_name='notifications',
+    recipient = models.IntegerField(
         verbose_name=_('recipient'),
         blank=False,
     )
