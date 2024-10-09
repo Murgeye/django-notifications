@@ -14,8 +14,7 @@ mark_unread.short_description = gettext_lazy('Mark selected notifications as unr
 
 
 class NotificationAdmin(AbstractNotificationAdmin):
-    raw_id_fields = ('recipient',)
-    readonly_fields = ('action_object_url', 'actor_object_url', 'target_object_url')
+    readonly_fields = ('recipient', 'action_object_url', 'actor_object_url', 'target_object_url')
     list_display = ('recipient', 'actor',
                     'level', 'target', 'unread', 'public')
     list_filter = ('level', 'unread', 'public', 'timestamp',)
