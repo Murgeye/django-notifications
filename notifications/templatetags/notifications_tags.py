@@ -21,7 +21,7 @@ def get_cached_notification_unread_count(user):
 
     return cache.get_or_set(
         'cache_notification_unread_count',
-        user.notifications.unread().count,
+        Notification.filter(recipient=user.id).unread().count(),
         settings.get_config()['CACHE_TIMEOUT']
     )
 
@@ -41,7 +41,7 @@ else:
 @register.filter
 def has_notification(user):
     if user:
-        return user.notifications.unread().exists()
+        return Notification.filter(recipient=user.id).unread().exists()
     return False
 
 
