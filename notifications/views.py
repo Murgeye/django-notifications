@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Django Notifications example views"""
 
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, cast
 
 from django.conf import settings
@@ -33,7 +35,7 @@ if TYPE_CHECKING:
     from notifications.models import Notification as NotificationCls
 
 
-class NotificationViewList(ListView[NotificationCls]):
+class NotificationViewList(ListView["NotificationCls"]):
     template_name = "notifications/list.html"
     context_object_name = "notifications"
     paginate_by = notification_settings.get_config()["PAGINATE_BY"]
@@ -50,7 +52,7 @@ class AllNotificationsList(NotificationViewList):
     Index page for authenticated user
     """
 
-    def get_queryset(self) -> QuerySet[NotificationCls]:
+    def get_queryset(self) -> QuerySet["NotificationCls"]:
         if notification_settings.get_config()["SOFT_DELETE"]:
             qset = Notification.objects.filter(
                 recipient=self.request.user.id,  # type: ignore[union-attr]
@@ -58,13 +60,13 @@ class AllNotificationsList(NotificationViewList):
             )
         else:
             qset = Notification.objects.filter(recipient=self.request.user.id)  # type: ignore[union-attr]
-        return cast(QuerySet[NotificationCls], qset)
+        return cast(QuerySet["NotificationCls"], qset)
 
 
 class UnreadNotificationsList(NotificationViewList):
-    def get_queryset(self) -> QuerySet[NotificationCls]:
+    def get_queryset(self) -> QuerySet["NotificationCls"]:
         return cast(
-            QuerySet[NotificationCls],
+            QuerySet["NotificationCls"],
             Notification.objects.filter(recipient=self.request.user.id, unread=True),  # type: ignore[union-attr]
         )
 
