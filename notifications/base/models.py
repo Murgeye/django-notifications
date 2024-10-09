@@ -21,7 +21,6 @@ from model_utils import Choices
 from swapper import load_model  # type:ignore[import-untyped]
 
 from notifications import settings as notifications_settings
-from notifications.models import Notification
 from notifications.signals import notify
 from notifications.utils import id2slug
 
