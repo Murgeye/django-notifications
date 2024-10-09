@@ -1,6 +1,8 @@
 """Django notifications template tags file"""
 
 # -*- coding: utf-8 -*-
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Any, cast
 
 from django.core.cache import cache
@@ -20,7 +22,7 @@ if TYPE_CHECKING:
         id: int
 
 
-def get_cached_notification_unread_count(user: User) -> int:
+def get_cached_notification_unread_count(user: "User") -> int:
     return cast(
         int,
         cache.get_or_set(
@@ -42,7 +44,7 @@ notifications_unread = register.simple_tag(takes_context=True)(notifications_unr
 
 
 @register.filter
-def has_notification(user: User) -> bool:
+def has_notification(user: "User") -> bool:
     if user:
         return Notification.objects.filter(recipient=user.id).unread().exists()
     return False
