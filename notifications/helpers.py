@@ -31,7 +31,7 @@ def get_num_to_fetch(request):
 def get_notification_list(request, method_name='all'):
     num_to_fetch = get_num_to_fetch(request)
     notification_list = []
-    notification_objects = Notification.objects.filter(recipient=requets.user.id)
+    notification_objects = Notification.objects.filter(recipient=request.user.id)
     for notification in getattr(notification_objects, method_name)()[0:num_to_fetch]:
         struct = model_to_dict(notification)
         struct['slug'] = id2slug(notification.id)
