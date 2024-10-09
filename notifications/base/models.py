@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=too-many-lines
+from __future__ import annotations
 
 from datetime import date
 from typing import TYPE_CHECKING, Any, Self
@@ -20,11 +21,14 @@ from model_utils import Choices
 from swapper import load_model  # type:ignore[import-untyped]
 
 from notifications import settings as notifications_settings
+from notifications.models import Notification
 from notifications.signals import notify
 from notifications.utils import id2slug
 
 if TYPE_CHECKING:
     import django_stubs_ext
+
+    from notifications.models import Notification
 
     django_stubs_ext.monkeypatch()
 
@@ -48,7 +52,7 @@ def assert_soft_delete() -> None:
         raise ImproperlyConfigured(msg)
 
 
-class NotificationQuerySet(QuerySet):  # type: ignore[type-arg]
+class NotificationQuerySet(QuerySet[Notification]):
     """Notification QuerySet"""
 
     def unsent(self) -> Self:
