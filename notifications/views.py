@@ -84,6 +84,18 @@ def mark_all_as_read(
         return redirect(iri_to_uri(_next))
     return redirect("notifications:unread")
 
+@login_required
+def delete_all(
+    request: HttpRequest,
+) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
+    notifications = Notification.objects.filter(recipient=request.user.id)  # type: ignore[union-attr]
+    notifications.delete_all()
+
+    _next = request.GET.get("next")
+
+    if _next and url_has_allowed_host_and_scheme(_next, settings.ALLOWED_HOSTS):
+        return redirect(iri_to_uri(_next))
+    return redirect("notifications:unread")
 
 @login_required
 def mark_as_read(

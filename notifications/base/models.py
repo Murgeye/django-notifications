@@ -76,7 +76,7 @@ class NotificationQuerySet(QuerySet["Notification"]):  # type: ignore
         # In this case, to improve query performance, don't filter by 'deleted' field
         return self.filter(unread=False)
 
-    def mark_all_as_read(self, recipient: None = None) -> int:
+    def mark_all_as_read(self, recipient: User | None = None) -> int:
         """Mark as read any unread messages in the current queryset.
 
         Optionally, filter these by recipient first.
@@ -88,6 +88,19 @@ class NotificationQuerySet(QuerySet["Notification"]):  # type: ignore
             qset = qset.filter(recipient=recipient.id)
 
         return qset.update(unread=False)
+
+    def delete_all(self, recipient: User | None = None) -> None:
+        """Mark as read any unread messages in the current queryset.
+
+        Optionally, filter these by recipient first.
+        """
+        # We want to filter out read ones, as later we will store
+        # the time they were marked as read.
+        qset = self.unread(True)
+        if recipient:
+            qset = qset.filter(recipient=recipient.id)
+
+        qset.delete()
 
     def mark_all_as_unread(self, recipient: User | None = None) -> int:
         """Mark as unread any read messages in the current queryset.
