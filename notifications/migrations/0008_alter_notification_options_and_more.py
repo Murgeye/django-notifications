@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='notification',
             name='action_object_content_type',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='notify_action_object', to='contenttypes.contenttype', verbose_name='action object content type'),
+            field=models.ForeignKey(db_constraint=False,blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='notify_action_object', to='contenttypes.contenttype', verbose_name='action object content type'),
         ),
         migrations.AlterField(
             model_name='notification',
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='notification',
             name='actor_content_type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='notify_actor', to='contenttypes.contenttype', verbose_name='actor content type'),
+            field=models.ForeignKey(db_constraint=False,on_delete=django.db.models.deletion.CASCADE, related_name='notify_actor', to='contenttypes.contenttype', verbose_name='actor content type'),
         ),
         migrations.AlterField(
             model_name='notification',
@@ -73,12 +73,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='notification',
             name='recipient',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='notifications', to=settings.AUTH_USER_MODEL, verbose_name='recipient'),
+            field=models.ForeignKey(db_constraint=False,on_delete=django.db.models.deletion.CASCADE, related_name='notifications', to=settings.AUTH_USER_MODEL, verbose_name='recipient'),
         ),
         migrations.AlterField(
             model_name='notification',
             name='target_content_type',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='notify_target', to='contenttypes.contenttype', verbose_name='target content type'),
+            field=models.ForeignKey(db_constraint=False,blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='notify_target', to='contenttypes.contenttype', verbose_name='target content type'),
         ),
         migrations.AlterField(
             model_name='notification',
